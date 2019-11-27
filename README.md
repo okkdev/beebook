@@ -1,5 +1,5 @@
 # Beebook
-Setup Postgres development DB
+## Setup Postgres development DB
 
   * Install natively and create database with user `postgres` and password `postgres`
 
@@ -9,7 +9,7 @@ Setup Postgres development DB
   * Start image with `docker run --name beebook -d -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres`
 
 
-To start the Phoenix server:
+## To start the Phoenix server:
 
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.setup`
