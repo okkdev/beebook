@@ -9,3 +9,11 @@
 body {
     @apply bg-gray-100;
 }
+
+.title {
+    @apply text-3xl text-indigo-900;
+}
+
+.subtitle {
+    @apply text-sm text-indigo-400;
+}
