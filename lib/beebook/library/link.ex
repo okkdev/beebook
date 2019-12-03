@@ -1,8 +1,8 @@
-defmodule Beebook.Library.Links do
+defmodule Beebook.Library.Link do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "link" do
+  schema "links" do
     field :name, :string
     field :priority, :integer
     field :url, :string
@@ -12,8 +12,8 @@ defmodule Beebook.Library.Links do
   end
 
   @doc false
-  def changeset(links, attrs) do
-    links
+  def changeset(link, attrs) do
+    link
     |> cast(attrs, [:name, :url, :priority])
     |> validate_required([:name, :url, :priority])
   end

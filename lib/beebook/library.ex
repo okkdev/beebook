@@ -6,99 +6,99 @@ defmodule Beebook.Library do
   import Ecto.Query, warn: false
   alias Beebook.Repo
 
-  alias Beebook.Library.Links
+  alias Beebook.Library.Link
 
   @doc """
-  Returns the list of link.
+  Returns the list of links.
 
   ## Examples
 
-      iex> list_link()
-      [%Links{}, ...]
+      iex> list_links()
+      [%Link{}, ...]
 
   """
-  def list_link do
-    Repo.all(Links)
+  def list_links do
+    Repo.all(Link)
   end
 
   @doc """
-  Gets a single links.
+  Gets a single link.
 
-  Raises `Ecto.NoResultsError` if the Links does not exist.
+  Raises `Ecto.NoResultsError` if the Link does not exist.
 
   ## Examples
 
-      iex> get_links!(123)
-      %Links{}
+      iex> get_link!(123)
+      %Link{}
 
-      iex> get_links!(456)
+      iex> get_link!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_links!(id), do: Repo.get!(Links, id)
+  def get_link!(id), do: Repo.get!(Link, id)
 
   @doc """
-  Creates a links.
+  Creates a link.
 
   ## Examples
 
-      iex> create_links(%{field: value})
-      {:ok, %Links{}}
+      iex> create_link(%{field: value})
+      {:ok, %Link{}}
 
-      iex> create_links(%{field: bad_value})
+      iex> create_link(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_links(attrs \\ %{}) do
-    %Links{}
-    |> Links.changeset(attrs)
+  def create_link(attrs \\ %{}) do
+    %Link{}
+    |> Link.changeset(attrs)
     |> Repo.insert()
   end
 
   @doc """
-  Updates a links.
+  Updates a link.
 
   ## Examples
 
-      iex> update_links(links, %{field: new_value})
-      {:ok, %Links{}}
+      iex> update_link(link, %{field: new_value})
+      {:ok, %Link{}}
 
-      iex> update_links(links, %{field: bad_value})
+      iex> update_link(link, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_links(%Links{} = links, attrs) do
-    links
-    |> Links.changeset(attrs)
+  def update_link(%Link{} = link, attrs) do
+    link
+    |> Link.changeset(attrs)
     |> Repo.update()
   end
 
   @doc """
-  Deletes a Links.
+  Deletes a Link.
 
   ## Examples
 
-      iex> delete_links(links)
-      {:ok, %Links{}}
+      iex> delete_link(link)
+      {:ok, %Link{}}
 
-      iex> delete_links(links)
+      iex> delete_link(link)
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_links(%Links{} = links) do
-    Repo.delete(links)
+  def delete_link(%Link{} = link) do
+    Repo.delete(link)
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking links changes.
+  Returns an `%Ecto.Changeset{}` for tracking link changes.
 
   ## Examples
 
-      iex> change_links(links)
-      %Ecto.Changeset{source: %Links{}}
+      iex> change_link(link)
+      %Ecto.Changeset{source: %Link{}}
 
   """
-  def change_links(%Links{} = links) do
-    Links.changeset(links, %{})
+  def change_link(%Link{} = link) do
+    Link.changeset(link, %{})
   end
 end

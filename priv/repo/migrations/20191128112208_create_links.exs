@@ -1,8 +1,8 @@
-defmodule Beebook.Repo.Migrations.CreateLink do
+defmodule Beebook.Repo.Migrations.CreateLinks do
   use Ecto.Migration
 
   def change do
-    create table(:link) do
+    create table(:links) do
       add :name, :string
       add :url, :string
       add :priority, :integer
@@ -11,6 +11,6 @@ defmodule Beebook.Repo.Migrations.CreateLink do
       timestamps()
     end
 
-    create index(:link, [:user_id])
+    create index(:links, [:user_id])
   end
 end
