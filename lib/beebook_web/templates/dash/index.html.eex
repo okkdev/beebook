@@ -1,0 +1,20 @@
+<div>
+<h1 class="title">dashboard</h1>
+<h3 class="subtitle">Usefull information</h3>
+ <table class="table-auto">
+  <thead>
+    <tr>
+      <th class="px-4 py-2">Users</th>
+      <th class="px-4 py-2">Active Users</th>
+      <th class="px-4 py-2">Number of saved Bookmarks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="border px-4 py-2">13</td>
+      <td class="border px-4 py-2">2</td>
+      <td class="border px-4 py-2">858</td>
+    </tr>
+  </tbody>
+</table>
+</div>
