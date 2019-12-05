@@ -13,8 +13,13 @@
       <%= live_render(@conn, Beebook.NavLive) %>
     </header>
     <main role="main" class="container mx-auto px-2">
-      <p class="bg-yellow-200 border-2 border-yellow-300 rounded-lg p-2 my-2" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="bg-red-200 border-2 border-red-300 rounded-lg p-2 my-2" role="alert"><%= get_flash(@conn, :error) %></p>
+      <%= if get_flash(@conn, :info) do %>
+        <p class="bg-yellow-200 border-2 border-yellow-300 rounded-lg p-2 my-2" role="alert"><%= get_flash(@conn, :info) %></p>
+      <% end %>
+      <%= if get_flash(@conn, :error) do %>
+        <p class="bg-red-200 border-2 border-red-300 rounded-lg p-2 my-2" role="alert"><%= get_flash(@conn, :error) %></p>
+      <% end %>
+
       <%= render @view_module, @view_template, assigns %>
     </main>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
