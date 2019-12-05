@@ -18,6 +18,7 @@ defmodule BeebookWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    resources "/register", UserController
     # resources "/library", LibraryController, :index
   end
 
