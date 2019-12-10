@@ -20,6 +20,7 @@ defmodule BeebookWeb.Router do
     get "/", PageController, :index
     # resources "/library", LibraryController, :index
     get "/dashboard", DashController, :index
+    get "/library", LibraryController, :index
   end
 
   # Other scopes may use custom stacks.
