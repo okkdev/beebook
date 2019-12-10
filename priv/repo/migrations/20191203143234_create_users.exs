@@ -4,13 +4,12 @@ defmodule Beebook.Repo.Migrations.CreateUsers do
   def change do
     create table(:users) do
       add :email, :string
-      add :password, :string
-      add :role_id, references(:roles, on_delete: :nothing)
+      add :password_hash, :string
+      add :admin, :boolean, default: false, null: false
 
       timestamps()
     end
 
     create unique_index(:users, [:email])
-    create index(:users, [:role_id])
   end
 end
