@@ -11,9 +11,9 @@
   </thead>
   <tbody>
     <tr>
-      <td class="border px-4 py-2">13</td>
-      <td class="border px-4 py-2">2</td>
-      <td class="border px-4 py-2">858</td>
+      <td class="border px-4 py-2"><%= length(@users) %></td>
+      <td class="border px-4 py-2">dreitusig</td>
+      <td class="border px-4 py-2"><%= length(@links) %></td>
     </tr>
   </tbody>
 </table>

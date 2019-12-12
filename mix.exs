@@ -46,7 +46,7 @@ defmodule Beebook.MixProject do
       {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
       {:floki, ">= 0.0.0", only: :test},
       {:comeonin, "~> 5.1"},
-      {:argon2_elixir, "~> 2.1"},
+      {:pbkdf2_elixir, "~> 1.0"},
       {:guardian, "~> 2.0"}
     ]
   end
