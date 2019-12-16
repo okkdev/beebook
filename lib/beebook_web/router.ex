@@ -14,14 +14,33 @@ defmodule BeebookWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug BeebookWeb.Helpers.AuthPlug
+  end
+
   scope "/", BeebookWeb do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/register", UserController
-    # resources "/library", LibraryController, :index
     get "/dashboard", DashController, :index
-    get "/library", LibraryController, :index
+
+    # Sign in
+    get "/sign-in", SessionController, :sign_in
+    post "/sign-in", SessionController, :create_session
+
+    # Sign up
+    get "/sign-up", SessionController, :sign_up
+    post "/sign-up", SessionController, :create_user
+
+    # Sign out
+    post "/sign-out", SessionController, :sign_out
+
+    # resources "/library", LibraryController, :index
+  end
+
+  scope "/", BeebookWeb do
+    pipe_through [:browser, :auth]
+    resources "/users", UserController, only: [:show, :edit, :update], singleton: true
   end
 
   # Other scopes may use custom stacks.

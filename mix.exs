@@ -47,7 +47,8 @@ defmodule Beebook.MixProject do
       {:floki, ">= 0.0.0", only: :test},
       {:comeonin, "~> 5.1"},
       {:pbkdf2_elixir, "~> 1.0"},
-      {:guardian, "~> 2.0"}
+      {:guardian, "~> 2.0"},
+      {:sobelow, "~> 0.8", only: :dev}
     ]
   end
 

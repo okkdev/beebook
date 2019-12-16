@@ -101,4 +101,17 @@ defmodule Beebook.Accounts do
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
+
+  @doc """
+  Returns a `%User{}` by email.
+
+  ## Examples
+
+      iex> get_by_email(email)
+      %User{}
+
+  """
+  def get_by_email(nil), do: nil
+
+  def get_by_email(email), do: User |> Repo.get_by(email: email)
 end
