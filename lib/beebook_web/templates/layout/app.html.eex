@@ -10,7 +10,7 @@
   </head>
   <body>
     <header>
-      <%= live_render(@conn, Beebook.NavLive) %>
+      <%= live_render(@conn, BeebookWeb.NavLive) %>
     </header>
     <main role="main" class="container mx-auto px-2">
       <%= if get_flash(@conn, :info) do %>

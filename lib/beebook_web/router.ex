@@ -34,13 +34,13 @@ defmodule BeebookWeb.Router do
 
     # Sign out
     post "/sign-out", SessionController, :sign_out
-
-    # resources "/library", LibraryController, :index
   end
 
   scope "/", BeebookWeb do
     pipe_through [:browser, :auth]
     resources "/users", UserController, only: [:show, :edit, :update], singleton: true
+
+    live "/library", LibraryLive
   end
 
   # Other scopes may use custom stacks.

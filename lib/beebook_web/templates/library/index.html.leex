@@ -1,0 +1,11 @@
+<form phx-submit="add">
+  <%= text_input :link, :name, placeholder: "link name" %>
+  <%= text_input :link, :url, placeholder: "link url" %>
+  <%= text_input :link, :priority, placeholder: "link priority" %>
+  <%= submit "Add", phx_disable_with: "Adding..." %>
+</form>
+
+<%= for link <- @links do %>
+<div><%= link.name %></div>
+<div><%= link.url %></div>
+<% end %>

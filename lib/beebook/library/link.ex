@@ -14,7 +14,8 @@ defmodule Beebook.Library.Link do
   @doc false
   def changeset(link, attrs) do
     link
-    |> cast(attrs, [:name, :url, :priority])
-    |> validate_required([:name, :url, :priority])
+    |> cast(attrs, [:name, :url, :priority, :user_id])
+    |> validate_required([:name, :url, :priority, :user_id])
+    |> foreign_key_constraint(:user_id)
   end
 end

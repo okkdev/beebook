@@ -2,7 +2,6 @@ defmodule BeebookWeb.UserController do
   use BeebookWeb, :controller
 
   alias Beebook.Accounts
-  alias Beebook.Accounts.User
 
   # def new(conn, _params) do
   #   changeset = Accounts.change_user(%User{})
