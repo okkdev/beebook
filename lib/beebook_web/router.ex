@@ -22,7 +22,6 @@ defmodule BeebookWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/dashboard", DashController, :index
 
     # Sign in
     get "/sign-in", SessionController, :sign_in
@@ -36,11 +35,14 @@ defmodule BeebookWeb.Router do
     post "/sign-out", SessionController, :sign_out
   end
 
+  # User Scope
   scope "/", BeebookWeb do
     pipe_through [:browser, :auth]
     resources "/users", UserController, only: [:show, :edit, :update], singleton: true
 
     live "/library", LibraryLive
+
+    get "/dashboard", DashController, :index
   end
 
   # Other scopes may use custom stacks.

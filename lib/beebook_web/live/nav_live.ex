@@ -3,11 +3,11 @@ defmodule BeebookWeb.NavLive do
 
   alias BeebookWeb.NavView
 
-  def render(_assigns) do
-    NavView.render("nav.html")
-  end
-
   def mount(_session, socket) do
     {:ok, socket}
+  end
+
+  def render(assigns) do
+    NavView.render("nav.html", assigns)
   end
 end
