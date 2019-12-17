@@ -1,4 +1,4 @@
-defmodule Beebook.NavLive do
+defmodule BeebookWeb.NavLive do
   use Phoenix.LiveView
 
   alias BeebookWeb.NavView
