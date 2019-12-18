@@ -1,7 +1,9 @@
-<nav role="navigation">
-  <div class="flex bg-gray-200 w-full h-12 p-1 shadow">
+<%# TODO: Steal -> https://polished-sunset-0ex44e5cb9xt.tailwindcss.com/previews/mZOl4nEdBiYkg9Nw %>
+
+<nav role="navigation" class="mb-6">
+  <div class="flex bg-white w-full h-12 p-1 shadow">
     <div class="flex flex-col flex-end flex-shrink-0 w-40 md:ml-auto">
-      <button class="bg-red-200 border-2 border-red-300 hover:bg-red-300 rounded-lg p-1 mb-1"><%= link "Logout", to: Routes.session_path(@socket, :sign_out), method: :post %></button>
+      <button class="button-bad"><%= link "Logout", to: "/sign-out", method: :post %></button>
     </div>  
   </div>
 </nav>
