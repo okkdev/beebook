@@ -1,11 +1,25 @@
-<form phx-submit="add">
-  <%= text_input :link, :name, placeholder: "link name" %>
-  <%= text_input :link, :url, placeholder: "link url" %>
-  <%= text_input :link, :priority, placeholder: "link priority" %>
-  <%= submit "Add", phx_disable_with: "Adding..." %>
+<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+
+<div class="text-gray-700 text-xl mb-8">Bookmarks</div>
+
+<form phx-submit="add" class="flex flex-col md:flex-row mb-12">
+  <%= text_input :link, :name, placeholder: "Name", class: "flex-1 md:max-w-xs min-w-0 w-full appearance-none block text-gray-700 border border-gray-300 rounded py-2 px-3 md:mr-4 mb-2 md:mb-0" %>
+  <%= url_input :link, :url, placeholder: "URL", class: "flex-1 min-w-0 w-full appearance-none block text-gray-700 border border-gray-300 rounded py-2 px-3 md:mr-4 mb-2 md:mb-0" %>
+  <div class="relative flex-grow md:flex-none flex flex-row mb-2 md:mb-0 md:mr-4">
+    <%= label :link, :priority, class: "flex flex-none items-center leading-normal text-gray-700 rounded rounded-r-none border border-r-0 border-gray-300 px-3 py-2 whitespace-no-wrap shadow-inner" do "Priority:" end %>
+    <%= select :link, :priority, ["Low": "1", "Medium": "2", "High": "3"], class: "w-full md:w-auto appearance-none block border border-gray-300 text-gray-700 py-2 px-3 rounded rounded-l-none" %>
+    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+      <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+    </div>
+  </div>
+  <%= submit "Add", phx_disable_with: "Adding...", class: "button-confirm md:flex-none" %>
 </form>
 
+<div class="flex flex-row">
 <%= for link <- @links do %>
-<div><%= link.name %></div>
-<div><%= link.url %></div>
+<div class="mr-4"><%= link.name %></div>
+<a href="<%= link.url %>" target="_"><%= link.url %></a>
 <% end %>
+
+</div>
+
