@@ -1,32 +1,34 @@
-<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+<div class="bg-white shadow-md rounded mx-auto max-w-lg px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
 
-<div class="text-gray-700 text-xl mb-5">Sign in</div>
+<div class="text-gray-700 text-xl mb-8">Sign in</div>
 
 <%= form_for @conn, Routes.session_path(@conn, :create_session),[as: :session] , fn f -> %>
 
-  <div class="-mx-3 md:flex mb-3">
+  <div class="-mx-3 md:flex mb-6">
     <div class="md:w-full px-3">
       <%= label f, :email, class: "block tracking-wide text-gray-700 mb-1" %>
-      <%= text_input f, :email, class: "appearance-none block w-full bg-grey-lighter text-gray-700 border border-gray-300 rounded py-2 px-3 mb-3" %>
-      <div class="text-red text-xs italic">
+      <%= text_input f, :email, class: "appearance-none block w-full text-gray-700 border border-gray-300 rounded py-2 px-3" %>
+      <div class="text-red-600 text-xs italic">
         <%= error_tag f, :email %>
       </div>
     </div>
   </div>
   
-  <div class="-mx-3 md:flex mb-3">
+  <div class="-mx-3 md:flex mb-8">
     <div class="md:w-full px-3">
       <%= label f, :password, class: "block tracking-wide text-gray-700 mb-1" %>
-      <%= password_input f, :password_hash, class: "appearance-none block w-full bg-grey-lighter text-gray-700 border border-gray-300 rounded py-2 px-3 mb-3" %>
-      <div class="text-red text-xs italic">
+      <%= password_input f, :password_hash, class: "appearance-none block w-full text-gray-700 border border-gray-300 rounded py-2 px-3" %>
+      <div class="text-red-600 text-xs italic">
         <%= error_tag f, :password_hash %>
       </div>
     </div>
   </div>
 
-  <div class="flex justify-center">
+  <div class="flex justify-between">
     <%= submit "Sign in", class: "button-confirm" %>
+    <%= link "I don't have an account", to: Routes.session_path(@conn, :sign_up), class: "button-info text-sm" %>
   </div>
+</div>
 <% end %>
 
 </div>

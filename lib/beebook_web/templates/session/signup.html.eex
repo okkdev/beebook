@@ -1,33 +1,49 @@
+<div class="bg-white shadow-md rounded mx-auto max-w-lg px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+
+<div class="text-gray-700 text-xl mb-8">Sign up</div>
+
 <%= form_for @changeset, Routes.session_path(@conn, :create_user) , fn f -> %>
+
   <%= if @changeset.action do %>
-    <div class="alert alert-danger">
+    <div class="text-red-500 -mt-5 mb-5">
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
   <% end %>
 
-  <%= label f, :email %>
-  <%= text_input f, :email %>
-  <%= error_tag f, :email %>
+  <div class="-mx-3 md:flex mb-6">
+    <div class="md:w-full px-3">
+      <%= label f, :email, class: "block tracking-wide text-gray-700 mb-1" %>
+      <%= text_input f, :email, class: "appearance-none block w-full text-gray-700 border border-gray-300 rounded py-2 px-3" %>
+      <div class="text-red-600 text-xs italic">
+        <%= error_tag f, :email %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="-mx-3 md:flex mb-6">
+    <div class="md:w-full px-3">
+      <%= label f, :password, class: "block tracking-wide text-gray-700 mb-1" %>
+      <%= password_input f, :password, class: "appearance-none block w-full text-gray-700 border border-gray-300 rounded py-2 px-3" %>
+      <div class="text-red-600 text-xs italic">
+        <%= error_tag f, :password %>
+      </div>
+    </div>
+  </div>
 
-  <br />
+  <div class="-mx-3 md:flex mb-8">
+    <div class="md:w-full px-3">
+      <%= label f, :password_confirmation, class: "block tracking-wide text-gray-700 mb-1" %>
+      <%= password_input f, :password_confirmation, class: "appearance-none block w-full text-gray-700 border border-gray-300 rounded py-2 px-3" %>
+      <div class="text-red-600 text-xs italic">
+        <%= error_tag f, :password_confirmation %>
+      </div>
+    </div>
+  </div>
 
-  <%= label f, :password %>
-  <%= password_input f, :password %>
-  <%= error_tag f, :password %>
-
-  <br />
-
-  <%= label f, :password_confirmation %>
-  <%= password_input f, :password_confirmation %>
-  <%= error_tag f, :password_confirmation %>
-
-  <br />
-
-  <%= label f, :admin %>
-  <%= checkbox f, :admin %>
-  <%= error_tag f, :admin %>
-
-  <div>
-    <%= submit "Sign up" %>
+  <div class="flex justify-between">
+    <%= submit "Sign up", class: "button-confirm" %>
+    <%= link "I already have an account", to: Routes.session_path(@conn, :sign_in), class: "button-info text-sm" %>
   </div>
 <% end %>
+
+</div>

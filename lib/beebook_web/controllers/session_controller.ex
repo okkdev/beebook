@@ -4,35 +4,6 @@ defmodule BeebookWeb.SessionController do
   alias Beebook.Accounts
   alias Accounts.User
 
-  # def new(conn, _params) do
-  #   render(conn, "new.html")
-  # end
-
-  # def create(conn, %{"session" => auth_params}) do
-  #   user = Accounts.get_by_email(auth_params["email"])
-
-  #   case Pbkdf2.check_pass(user, auth_params["password"]) do
-  #     {:ok, user} ->
-  #       conn
-  #       |> put_session(:current_user_id, user.id)
-  #       |> put_flash(:info, "Signed in successfully.")
-
-  #     # |> redirect(to: Routes.library_path(conn, :index))
-  #     {:error, _} ->
-  #       conn
-  #       |> put_flash(:error, "There was a problem with your username/password")
-  #       |> render("new.html")
-  #   end
-  # end
-
-  # def delete(conn, _params) do
-  #   conn
-  #   |> delete_session(:current_user_id)
-  #   |> put_flash(:info, "Signed out successfully.")
-
-  #   # |> redirect(to: Routes.library_path(conn, :index))
-  # end
-
   def sign_in(conn, _params) do
     # If user is logged in and tries to connecto to "/sign-in" redirect him
     if is_logged_in?(conn) do
@@ -66,7 +37,7 @@ defmodule BeebookWeb.SessionController do
 
       {:error, _} ->
         conn
-        |> put_flash(:error, "Invalid e-mail/password. Try again!")
+        |> put_flash(:error, "Invalid email or password. Please try again.")
         |> redirect(to: Routes.session_path(conn, :sign_in))
     end
   end
