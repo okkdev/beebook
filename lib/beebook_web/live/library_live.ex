@@ -38,7 +38,7 @@ defmodule BeebookWeb.LibraryLive do
         )
 
         {:noreply,
-         assign(socket, links: sort_links(socket.assigns.links ++ [link], socket.assigns.sort_by))}
+         assign(socket, links: sort_links([link | socket.assigns.links], socket.assigns.sort_by))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, link_changeset: changeset)}
@@ -76,7 +76,7 @@ defmodule BeebookWeb.LibraryLive do
   """
   def handle_info(%{event: "add", payload: link}, socket) do
     {:noreply,
-     assign(socket, links: sort_links(socket.assigns.links ++ [link], socket.assigns.sort_by))}
+     assign(socket, links: sort_links([link | socket.assigns.links], socket.assigns.sort_by))}
   end
 
   # Pattern matching sort functions
