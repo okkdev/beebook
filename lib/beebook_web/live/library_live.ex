@@ -2,6 +2,7 @@ defmodule BeebookWeb.LibraryLive do
   use Phoenix.LiveView
 
   alias Beebook.Library
+  alias Beebook.Library.Link
   alias BeebookWeb.LibraryView
 
   def mount(session, socket) do
@@ -10,7 +11,10 @@ defmodule BeebookWeb.LibraryLive do
 
     {:ok,
      fetch(
-       assign(socket, current_user_id: session["current_user_id"], link: Library.change_link())
+       assign(socket,
+         current_user_id: session["current_user_id"],
+         link: Library.change_link(%Link{})
+       )
      )}
   end
 
@@ -23,21 +27,24 @@ defmodule BeebookWeb.LibraryLive do
   """
   def handle_event("add", %{"link" => link}, socket) do
     case Library.create_link(link) do
-      {:ok, result} ->
+      {:ok, link} ->
         # broadcast change to other sessions from user
         BeebookWeb.Endpoint.broadcast_from(
           self(),
           topic(socket.assigns.current_user_id),
           "add",
-          result
+          link
         )
 
         {:noreply, fetch(socket)}
 
-      {:error, _} ->
-        nil
-        # put_flash(:error, "Something went wrong. Please try again.")
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:noreply, assign(socket, link: changeset)}
     end
+  end
+
+  def handle_event("validate", socket) do
+    {:noreply, socket}
   end
 
   @doc """

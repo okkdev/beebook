@@ -104,19 +104,6 @@ defmodule Beebook.Library do
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}`.
-
-  ## Examples
-
-      iex> change_link()
-      %Ecto.Changeset{%Link{}}
-
-  """
-  def change_link() do
-    Link.changeset(%Link{})
-  end
-
-  @doc """
   Returns an `%Ecto.Changeset{}` for tracking link changes.
 
   ## Examples
