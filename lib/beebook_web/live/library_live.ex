@@ -13,7 +13,8 @@ defmodule BeebookWeb.LibraryLive do
      fetch(
        assign(socket,
          current_user_id: session["current_user_id"],
-         link: Library.change_link(%Link{})
+         link_changeset: Library.change_link(%Link{}),
+         sort_by: "created"
        )
      )}
   end
@@ -36,10 +37,11 @@ defmodule BeebookWeb.LibraryLive do
           link
         )
 
-        {:noreply, fetch(socket)}
+        {:noreply,
+         assign(socket, links: sort_links(socket.assigns.links ++ [link], socket.assigns.sort_by))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, link: changeset)}
+        {:noreply, assign(socket, link_changeset: changeset)}
     end
   end
 
@@ -54,7 +56,8 @@ defmodule BeebookWeb.LibraryLive do
     case sort_by do
       sort_by
       when sort_by in ~w(name created priority url) ->
-        {:noreply, assign(socket, links: sort_links(socket.assigns.links, sort_by))}
+        {:noreply,
+         assign(socket, links: sort_links(socket.assigns.links, sort_by), sort_by: sort_by)}
 
       _ ->
         {:noreply, socket}
@@ -71,8 +74,9 @@ defmodule BeebookWeb.LibraryLive do
   @doc """
   Handle info that gets triggered by PubSub broadcasts and fetches the changes.
   """
-  def handle_info(%{event: "add"}, socket) do
-    {:noreply, fetch(socket)}
+  def handle_info(%{event: "add", payload: link}, socket) do
+    {:noreply,
+     assign(socket, links: sort_links(socket.assigns.links ++ [link], socket.assigns.sort_by))}
   end
 
   # Pattern matching sort functions
