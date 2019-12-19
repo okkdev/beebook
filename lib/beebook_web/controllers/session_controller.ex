@@ -25,6 +25,9 @@ defmodule BeebookWeb.SessionController do
 
   defp is_logged_in?(conn), do: !!get_session(conn, :current_user_id)
 
+  @doc """
+  Logs a user in
+  """
   def create_session(conn, %{"session" => auth_params} = _params) do
     user = Accounts.get_by_email(auth_params["email"])
 
@@ -42,6 +45,9 @@ defmodule BeebookWeb.SessionController do
     end
   end
 
+  @doc """
+  Creates a new user
+  """
   def create_user(conn, %{"user" => user_params}) do
     case Accounts.create_user(user_params) do
       {:ok, user} ->
@@ -55,6 +61,9 @@ defmodule BeebookWeb.SessionController do
     end
   end
 
+  @doc """
+  Deletes a user session
+  """
   def sign_out(conn, _params) do
     conn
     |> delete_session(:current_user_id)

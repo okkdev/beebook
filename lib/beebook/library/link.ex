@@ -12,7 +12,7 @@ defmodule Beebook.Library.Link do
   end
 
   @doc false
-  def changeset(link, attrs) do
+  def changeset(link, attrs \\ %{}) do
     link
     |> cast(attrs, [:name, :url, :priority, :user_id])
     |> validate_required([:name, :url, :priority, :user_id])
