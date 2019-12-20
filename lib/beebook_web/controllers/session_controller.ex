@@ -5,7 +5,7 @@ defmodule BeebookWeb.SessionController do
   alias Accounts.User
 
   def sign_in(conn, _params) do
-    # If user is logged in and tries to connecto to "/sign-in" redirect him
+    # If user is logged in and tries to connecto to "/signin" redirect him
     if is_logged_in?(conn) do
       redirect(conn, to: Routes.page_path(conn, :index))
     else
@@ -14,7 +14,7 @@ defmodule BeebookWeb.SessionController do
   end
 
   def sign_up(conn, _params) do
-    # If user is logged in and tries to connecto to "/sign-up" redirect him
+    # If user is logged in and tries to connecto to "/signup" redirect him
     if is_logged_in?(conn) do
       redirect(conn, to: Routes.user_path(conn, :show))
     else
@@ -36,7 +36,7 @@ defmodule BeebookWeb.SessionController do
         conn
         |> put_session(:current_user_id, user.id)
         |> put_flash(:info, "Sign in, successful!")
-        |> redirect(to: Routes.user_path(conn, :show))
+        |> redirect(to: Routes.page_path(conn, :index))
 
       {:error, _} ->
         conn
@@ -54,7 +54,7 @@ defmodule BeebookWeb.SessionController do
         conn
         |> put_session(:current_user_id, user.id)
         |> put_flash(:info, "Sign up, successful!")
-        |> redirect(to: Routes.user_path(conn, :show))
+        |> redirect(to: Routes.page_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "signup.html", changeset: changeset)
