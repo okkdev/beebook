@@ -13,7 +13,7 @@ defmodule BeebookWeb.Helpers.AuthPlug do
   defp auth_reply(conn, nil) do
     conn
     |> put_flash(:error, "You have to sign in first!")
-    |> redirect(to: "/sign-in")
+    |> redirect(to: "/signin")
     |> halt()
   end
 

@@ -24,15 +24,15 @@ defmodule BeebookWeb.Router do
     get "/", PageController, :index
 
     # Sign in
-    get "/sign-in", SessionController, :sign_in
-    post "/sign-in", SessionController, :create_session
+    get "/signin", SessionController, :sign_in
+    post "/signin", SessionController, :create_session
 
     # Sign up
-    get "/sign-up", SessionController, :sign_up
-    post "/sign-up", SessionController, :create_user
+    get "/signup", SessionController, :sign_up
+    post "/signup", SessionController, :create_user
 
     # Sign out
-    post "/sign-out", SessionController, :sign_out
+    post "/signout", SessionController, :sign_out
   end
 
   # User Scope

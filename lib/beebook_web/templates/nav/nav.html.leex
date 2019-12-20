@@ -1,9 +1,50 @@
 <%# TODO: Steal -> https://polished-sunset-0ex44e5cb9xt.tailwindcss.com/previews/mZOl4nEdBiYkg9Nw %>
 
 <nav role="navigation" class="mb-6">
-  <div class="flex bg-white w-full h-12 p-1 shadow">
-    <div class="flex flex-col flex-end flex-shrink-0 w-40 md:ml-auto">
-      <button class="button-bad"><%= link "Logout", to: "/sign-out", method: :post %></button>
-    </div>  
+  <div class="flex bg-white w-full py-2 px-2 md:px-8 items-center justify-between shadow">
+      <div class="w-8 h-8">
+        <%= link to: "/" do %>
+        <img src="<%= Routes.static_path(@socket, "/images/logo.png") %>">
+        <% end %>
+      </div>
+
+      <div class="relative inline-block">
+        <form phx-submit="toggle">
+          <%= submit class: "inline-flex items-center pl-6 pr-2 py-2 font-semibold text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:outline-none" do %>
+            Account
+            <svg
+              class="ml-2 h-6 w-6 text-white"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M15.3 9.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z"
+              />
+            </svg>
+          <% end %>
+        </form>
+
+        <%= if @account_button do %>
+        <div class="mt-2 absolute right-0 origin-top-right text-left">
+          <div class="w-48 bg-white rounded-lg shadow-lg">
+            <div class="py-1">
+              <%= link to: "/users", class: "block px-6 py-3 leading-tight hover:bg-gray-200" do %>
+                Account
+              <% end %>
+
+              <%= link to: "/users/edit", class: "block px-6 py-3 leading-tight hover:bg-gray-200" do %>
+                Settings
+              <% end %>
+            </div>
+            <div class="border-t-2 border-gray-200 py-1">
+              <%= link to: "/signout", method: :post, class: "block w-full px-6 py-3 text-left leading-tight hover:bg-gray-200" do %>
+                Sign out
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+
+      </div>
   </div>
 </nav>

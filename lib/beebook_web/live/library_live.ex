@@ -28,7 +28,7 @@ defmodule BeebookWeb.LibraryLive do
   Handle Search.
   """
   def handle_event("search", %{"q" => query}, socket) when byte_size(query) <= 100 do
-    search_links(query, socket)
+    {:noreply, search_links(query, socket)}
   end
 
   @doc """
@@ -69,7 +69,7 @@ defmodule BeebookWeb.LibraryLive do
           link
         )
 
-        add_link(link, socket)
+        {:noreply, add_link(link, socket)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, link_changeset: changeset)}
@@ -80,7 +80,7 @@ defmodule BeebookWeb.LibraryLive do
   Handle info that gets triggered by PubSub broadcasts and adds the new link to the available links.
   """
   def handle_info(%{event: "add", payload: link}, socket) do
-    add_link(link, socket)
+    {:noreply, add_link(link, socket)}
   end
 
   @doc """
@@ -99,7 +99,7 @@ defmodule BeebookWeb.LibraryLive do
       when sort_by in ~w(name created priority url priority_medium priority_low) ->
         links = sort_links(socket.assigns.search, sort_by)
 
-        search_links(assign(socket, links: links, search: links, sort_by: sort_by))
+        {:noreply, search_links(assign(socket, links: links, search: links, sort_by: sort_by))}
 
       _ ->
         {:noreply, socket}
@@ -138,6 +138,7 @@ defmodule BeebookWeb.LibraryLive do
     Enum.sort_by(links, fn links -> links.url end)
   end
 
+  # Sort specific priority to the top
   defp sort_links_priority(links, prio) do
     rest =
       links
@@ -165,9 +166,13 @@ defmodule BeebookWeb.LibraryLive do
 
   # Searches through the search list of links and adds them to the links assign
   defp search_links(query, socket) do
-    links = Enum.filter(socket.assigns.search, &String.contains?(&1.name, query))
+    links =
+      Enum.filter(
+        socket.assigns.search,
+        &String.contains?(String.downcase(&1.name), String.downcase(query))
+      )
 
-    {:noreply, assign(socket, query: query, links: links)}
+    assign(socket, query: query, links: links)
   end
 
   # Topic helper for binary
