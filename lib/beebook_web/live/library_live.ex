@@ -32,6 +32,30 @@ defmodule BeebookWeb.LibraryLive do
   end
 
   @doc """
+  Deletes links by ID
+  """
+  def handle_event("delete", %{"link" => %{"id" => id}}, socket) do
+    # find link by id
+    link = Enum.find(socket.assigns.search, &(&1.id == String.to_integer(id)))
+
+    case Library.delete_link(link) do
+      {:ok, _} ->
+        # broadcast change to other sessions from user
+        BeebookWeb.Endpoint.broadcast_from(
+          self(),
+          topic(socket.assigns.current_user_id),
+          "delete",
+          link
+        )
+
+        {:noreply, fetch(socket)}
+
+      {:error, _} ->
+        {:noreply, socket}
+    end
+  end
+
+  @doc """
   Handle add event when adding new links.
   """
   def handle_event("add", %{"link" => link}, socket) do
@@ -53,10 +77,17 @@ defmodule BeebookWeb.LibraryLive do
   end
 
   @doc """
-  Handle info that gets triggered by PubSub broadcasts and fetches the changes.
+  Handle info that gets triggered by PubSub broadcasts and adds the new link to the available links.
   """
   def handle_info(%{event: "add", payload: link}, socket) do
     add_link(link, socket)
+  end
+
+  @doc """
+  Handle info that gets triggered by PubSub broadcasts and fetches the changes.
+  """
+  def handle_info(%{event: "delete"}, socket) do
+    {:noreply, fetch(socket)}
   end
 
   @doc """
@@ -119,7 +150,7 @@ defmodule BeebookWeb.LibraryLive do
   # Assign helper function
   defp fetch(socket) do
     links = Library.list_links(socket.assigns.current_user_id)
-    assign(socket, links: links, search: links)
+    search_links(assign(socket, links: links, search: links))
   end
 
   # Adds a new link to the list and updates the search list
