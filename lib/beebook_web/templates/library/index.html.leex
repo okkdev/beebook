@@ -32,7 +32,7 @@
     <input type="text" name="q" value="<%= @query %>" list="matches" placeholder="Search..." autocomplete="off" class="w-full appearance-none block text-gray-700 border border-gray-300 rounded py-2 px-3" />
   </form>
 
-
+  <%= if !Enum.empty?(@links) do %>
   <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
     <table class="min-w-full leading-normal">
       <thead>
@@ -97,5 +97,6 @@
       </tbody>
     </table>
   </div>
+  <% end %>
 </div>
 
