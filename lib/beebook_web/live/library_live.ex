@@ -14,13 +14,21 @@ defmodule BeebookWeb.LibraryLive do
        assign(socket,
          current_user_id: session["current_user_id"],
          link_changeset: Library.change_link(%Link{}),
-         sort_by: "created"
+         sort_by: "created",
+         query: ""
        )
      )}
   end
 
   def render(assigns) do
     LibraryView.render("index.html", assigns)
+  end
+
+  @doc """
+  Handle Search.
+  """
+  def handle_event("search", %{"q" => query}, socket) when byte_size(query) <= 100 do
+    search_links(query, socket)
   end
 
   @doc """
@@ -37,16 +45,18 @@ defmodule BeebookWeb.LibraryLive do
           link
         )
 
-        {:noreply,
-         assign(socket, links: sort_links([link | socket.assigns.links], socket.assigns.sort_by))}
+        add_link(link, socket)
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, link_changeset: changeset)}
     end
   end
 
-  def handle_event("validate", socket) do
-    {:noreply, socket}
+  @doc """
+  Handle info that gets triggered by PubSub broadcasts and fetches the changes.
+  """
+  def handle_info(%{event: "add", payload: link}, socket) do
+    add_link(link, socket)
   end
 
   @doc """
@@ -55,9 +65,10 @@ defmodule BeebookWeb.LibraryLive do
   def handle_params(%{"sort_by" => sort_by}, _uri, socket) do
     case sort_by do
       sort_by
-      when sort_by in ~w(name created priority url) ->
-        {:noreply,
-         assign(socket, links: sort_links(socket.assigns.links, sort_by), sort_by: sort_by)}
+      when sort_by in ~w(name created priority url priority_medium priority_low) ->
+        links = sort_links(socket.assigns.search, sort_by)
+
+        search_links(assign(socket, links: links, search: links, sort_by: sort_by))
 
       _ ->
         {:noreply, socket}
@@ -69,14 +80,6 @@ defmodule BeebookWeb.LibraryLive do
   """
   def handle_params(_params, _uri, socket) do
     {:noreply, socket}
-  end
-
-  @doc """
-  Handle info that gets triggered by PubSub broadcasts and fetches the changes.
-  """
-  def handle_info(%{event: "add", payload: link}, socket) do
-    {:noreply,
-     assign(socket, links: sort_links([link | socket.assigns.links], socket.assigns.sort_by))}
   end
 
   # Pattern matching sort functions
@@ -92,13 +95,48 @@ defmodule BeebookWeb.LibraryLive do
     Enum.sort_by(links, fn links -> links.priority end)
   end
 
+  defp sort_links(links, "priority_medium") do
+    sort_links_priority(links, 2)
+  end
+
+  defp sort_links(links, "priority_low") do
+    sort_links_priority(links, 3)
+  end
+
   defp sort_links(links, "url") do
     Enum.sort_by(links, fn links -> links.url end)
   end
 
+  defp sort_links_priority(links, prio) do
+    rest =
+      links
+      |> Enum.filter(fn x -> x.priority != prio end)
+      |> Enum.sort_by(fn links -> links.priority end)
+
+    Enum.filter(links, fn x -> x.priority == prio end) ++ rest
+  end
+
   # Assign helper function
   defp fetch(socket) do
-    assign(socket, links: Library.list_links(socket.assigns.current_user_id))
+    links = Library.list_links(socket.assigns.current_user_id)
+    assign(socket, links: links, search: links)
+  end
+
+  # Adds a new link to the list and updates the search list
+  defp add_link(link, socket) do
+    links = sort_links([link | socket.assigns.search], socket.assigns.sort_by)
+    search_links(assign(socket, links: links, search: links))
+  end
+
+  defp search_links(socket) do
+    search_links(socket.assigns.query, socket)
+  end
+
+  # Searches through the search list of links and adds them to the links assign
+  defp search_links(query, socket) do
+    links = Enum.filter(socket.assigns.search, &String.contains?(&1.name, query))
+
+    {:noreply, assign(socket, query: query, links: links)}
   end
 
   # Topic helper for binary

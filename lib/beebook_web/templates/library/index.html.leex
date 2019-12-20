@@ -28,6 +28,11 @@
   </div>
   <% end %>
 
+  <form phx-change="search" class="mb-4">
+    <input type="text" name="q" value="<%= @query %>" list="matches" placeholder="Search..." autocomplete="off" class="w-full appearance-none block text-gray-700 border border-gray-300 rounded py-2 px-3" />
+  </form>
+
+
   <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
     <table class="min-w-full leading-normal">
       <thead>
@@ -53,16 +58,19 @@
         <%= for link <- @links do %>
         <tr>
           <td class="pl-5 py-5 border-b border-gray-200 bg-white text-sm">
-            <%= live_link to: Routes.live_path(@socket, BeebookWeb.LibraryLive, %{sort_by: "priority"}) do %>
-              <%= case link.priority do %>
-              <% 1 -> %>
-              <div class="bg-red-400 rounded-full overflow-hidden w-3 h-3">
-              <% 2 -> %>
-              <div class="bg-yellow-400 rounded-full overflow-hidden w-3 h-3">
-              <% _ -> %>
-              <div class="bg-green-400 rounded-full overflow-hidden w-3 h-3">
+            <%= case link.priority do %>
+            <% 1 -> %>
+              <%= live_link to: Routes.live_path(@socket, BeebookWeb.LibraryLive, %{sort_by: "priority"}) do %>
+                <div class="bg-red-400 rounded-full overflow-hidden w-3 h-3"></div>
               <% end %>
-              </div>
+            <% 2 -> %>
+              <%= live_link to: Routes.live_path(@socket, BeebookWeb.LibraryLive, %{sort_by: "priority_medium"}) do %>
+                <div class="bg-yellow-400 rounded-full overflow-hidden w-3 h-3"></div>
+              <% end %>
+            <% _ -> %>
+              <%= live_link to: Routes.live_path(@socket, BeebookWeb.LibraryLive, %{sort_by: "priority_low"}) do %>
+                <div class="bg-green-400 rounded-full overflow-hidden w-3 h-3"></div>
+              <% end %>
             <% end %>
           </td>
           <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
