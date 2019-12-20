@@ -65,9 +65,13 @@ defmodule BeebookWeb.SessionController do
   Deletes a user session
   """
   def sign_out(conn, _params) do
-    conn
-    |> delete_session(:current_user_id)
-    |> put_flash(:info, "Signed out.")
-    |> redirect(to: Routes.page_path(conn, :index))
+    if is_logged_in?(conn) do
+      conn
+      |> delete_session(:current_user_id)
+      |> put_flash(:info, "Signed out.")
+      |> redirect(to: Routes.page_path(conn, :index))
+    else
+      render(conn, "signin.html")
+    end
   end
 end

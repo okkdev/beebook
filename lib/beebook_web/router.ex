@@ -30,15 +30,14 @@ defmodule BeebookWeb.Router do
     # Sign up
     get "/signup", SessionController, :sign_up
     post "/signup", SessionController, :create_user
-
-    # Sign out
-    post "/signout", SessionController, :sign_out
   end
 
   # User Scope
   scope "/", BeebookWeb do
     pipe_through [:browser, :auth]
     resources "/users", UserController, only: [:show, :edit, :update], singleton: true
+    # Sign out
+    post "/signout", SessionController, :sign_out
 
     live "/library", LibraryLive
 
