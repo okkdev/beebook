@@ -151,7 +151,6 @@ defmodule BeebookWeb.LibraryLive do
   # Assign helper function
   defp fetch(socket) do
     links = sort_links(Library.list_links(socket.assigns.current_user_id), socket.assigns.sort_by)
-
     search_links(assign(socket, links: links, search: links))
   end
 
