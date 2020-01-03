@@ -6,5 +6,5 @@
     <%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :update)) %>
   </div>
   
-  <%= link "Back", to: Routes.user_path(@conn, :show), class: "button-info" %>
+  <%= link "Account", to: Routes.user_path(@conn, :show), class: "button-info" %>
 </div>
