@@ -6,8 +6,8 @@ defmodule BeebookWeb.Helpers.AuthPlug do
   def init(default), do: default
 
   def call(conn, _opts) do
-    user_id = get_session(conn, :current_user_id)
-    auth_reply(conn, user_id)
+    user = get_session(conn, :current_user)
+    auth_reply(conn, user)
   end
 
   defp auth_reply(conn, nil) do
@@ -17,9 +17,7 @@ defmodule BeebookWeb.Helpers.AuthPlug do
     |> halt()
   end
 
-  defp auth_reply(conn, user_id) do
-    user = Accounts.get_user!(user_id)
-
+  defp auth_reply(conn, user) do
     conn
     |> assign(:current_user, user)
   end

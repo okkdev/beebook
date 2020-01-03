@@ -6,13 +6,15 @@ defmodule BeebookWeb.LibraryLive do
   alias BeebookWeb.LibraryView
 
   def mount(session, socket) do
+    user = session["current_user"]
+
     # subscribe to user pubsub
-    BeebookWeb.Endpoint.subscribe(topic(session["current_user_id"]))
+    BeebookWeb.Endpoint.subscribe(topic(user.id))
 
     {:ok,
      fetch(
        assign(socket,
-         current_user_id: session["current_user_id"],
+         current_user_id: user.id,
          link_changeset: Library.change_link(%Link{}),
          sort_by: "created",
          query: ""

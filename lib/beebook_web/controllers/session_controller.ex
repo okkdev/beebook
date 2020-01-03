@@ -23,7 +23,7 @@ defmodule BeebookWeb.SessionController do
     end
   end
 
-  defp is_logged_in?(conn), do: !!get_session(conn, :current_user_id)
+  defp is_logged_in?(conn), do: !!get_session(conn, :current_user)
 
   @doc """
   Logs a user in
@@ -34,8 +34,8 @@ defmodule BeebookWeb.SessionController do
     case Pbkdf2.check_pass(user, auth_params["password_hash"]) do
       {:ok, user} ->
         conn
-        |> put_session(:current_user_id, user.id)
-        |> put_flash(:info, "Sign in, successful!")
+        |> put_session(:current_user, user)
+        |> put_flash(:info, "Sign in successful!")
         |> redirect(to: Routes.page_path(conn, :index))
 
       {:error, _} ->
@@ -52,8 +52,8 @@ defmodule BeebookWeb.SessionController do
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         conn
-        |> put_session(:current_user_id, user.id)
-        |> put_flash(:info, "Sign up, successful!")
+        |> put_session(:current_user, user)
+        |> put_flash(:info, "Sign up successful!")
         |> redirect(to: Routes.page_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -67,7 +67,7 @@ defmodule BeebookWeb.SessionController do
   def sign_out(conn, _params) do
     if is_logged_in?(conn) do
       conn
-      |> delete_session(:current_user_id)
+      |> delete_session(:current_user)
       |> put_flash(:info, "Signed out.")
       |> redirect(to: Routes.page_path(conn, :index))
     else
