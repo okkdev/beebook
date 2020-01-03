@@ -3,8 +3,12 @@ defmodule BeebookWeb.NavLive do
 
   alias BeebookWeb.NavView
 
-  def mount(_session, socket) do
-    {:ok, assign(socket, account_button: false)}
+  def mount(session, socket) do
+    {:ok,
+     assign(socket,
+       account_button: false,
+       user: session["current_user"]
+     )}
   end
 
   def render(assigns) do
