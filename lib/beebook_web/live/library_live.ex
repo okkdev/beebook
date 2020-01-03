@@ -121,7 +121,12 @@ defmodule BeebookWeb.LibraryLive do
   end
 
   defp sort_links(links, "created") do
-    Enum.sort_by(links, fn links -> links.inserted_at end, &Timex.before?/2)
+    # Switch between sorting ascending and descending
+    if Timex.after?(Enum.at(links, 0).inserted_at, Enum.at(links, 1).inserted_at) do
+      Enum.sort_by(links, fn links -> links.inserted_at end, &Timex.before?/2)
+    else
+      Enum.sort_by(links, fn links -> links.inserted_at end, &Timex.after?/2)
+    end
   end
 
   defp sort_links(links, "priority") do
