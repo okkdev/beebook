@@ -122,11 +122,16 @@ defmodule BeebookWeb.LibraryLive do
 
   defp sort_links(links, "created") do
     # Switch between sorting ascending and descending
-    if Timex.after?(Enum.at(links, 0).inserted_at, Enum.at(links, 1).inserted_at) do
+    if Enum.count(links) >= 2 &&
+         Timex.after?(Enum.at(links, 0).inserted_at, Enum.at(links, 1).inserted_at) do
       Enum.sort_by(links, fn links -> links.inserted_at end, &Timex.before?/2)
     else
       Enum.sort_by(links, fn links -> links.inserted_at end, &Timex.after?/2)
     end
+  end
+
+  defp sort_links(links, "added") do
+    Enum.sort_by(links, fn links -> links.inserted_at end, &Timex.after?/2)
   end
 
   defp sort_links(links, "priority") do
@@ -163,7 +168,7 @@ defmodule BeebookWeb.LibraryLive do
 
   # Adds a new link to the list and updates the search list
   defp add_link(link, socket) do
-    links = sort_links([link | socket.assigns.search], socket.assigns.sort_by)
+    links = sort_links([link | socket.assigns.search], "added")
     search_links(assign(socket, links: links, search: links))
   end
 
