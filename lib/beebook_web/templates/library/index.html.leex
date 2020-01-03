@@ -39,7 +39,7 @@
         <tr>
           <th class="pl-5 py-3 border-b-2 border-gray-200 bg-gray-100 w-0">
             <%= live_link to: Routes.live_path(@socket, BeebookWeb.LibraryLive, %{sort_by: "priority"}) do %>
-            <div class="bg-gray-500 mx-auto rounded-full overflow-hidden w-2 h-2"></div>
+            <div class="bg-gray-500 mx-auto rounded-full overflow-hidden w-2 h-2" title="Priority"></div>
             <% end %>
           </th>
           <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 tracking-wider">
@@ -76,10 +76,10 @@
           <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
             <a href="<%= link.url %>" target="_"><%= link.name %></a>
           </td>
-          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm hidden sm:table-cell">
+          <td class="px-5 py-5 border-b border-gray-200 text-gray-600 bg-white text-sm hidden sm:table-cell">
             <a href="<%= link.url %>" target="_"><%= link.url %></a>
           </td>
-          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm hidden md:table-cell">
+          <td class="px-5 py-5 border-b border-gray-200 text-gray-600 bg-white text-sm hidden md:table-cell">
             <%= Timex.format!(link.inserted_at, "%d.%m.%Y %H:%M", :strftime) %>
           </td>
           <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">
@@ -97,6 +97,8 @@
       </tbody>
     </table>
   </div>
+  <% else %>
+  <div class="text-center w-full text-gray-500">No entries found :(</div>
   <% end %>
 </div>
 
