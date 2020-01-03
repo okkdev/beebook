@@ -10,12 +10,16 @@
       <%# if user logged in show options and keep one div for justify between %>
       <%= if @user do %>
       <%= link to: "/library", class: "text-sm font-medium text-gray-600 hover:text-gray-700" do %>
+      <div class="bg-gray-100 rounded-lg overflow-hidden py-2 px-3 hover:bg-gray-200 shadow-sm">
         Library
+      </div>
       <% end %>
       <%# Show dashboard for admins %>
       <%= if @user.admin do %>
         <%= link to: "/dashboard", class: "text-sm font-medium text-gray-600 hover:text-gray-700 ml-4" do %>
+        <div class="bg-gray-100 rounded-lg overflow-hidden py-2 px-3 hover:bg-gray-200 shadow-sm">
           Dashboard
+        </div>
         <% end %>
       <% end %>
       </div>
