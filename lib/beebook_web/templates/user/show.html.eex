@@ -1,18 +1,15 @@
-<h1>Show User</h1>
+<div class="bg-white shadow-md rounded mx-auto max-w-lg px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
 
-<ul>
+<div class="text-gray-700 text-xl mb-8">Account</div>
 
-  <li>
-    <strong>Email:</strong>
-    <%= @user.email %>
-  </li>
+  <div class="mb-8 flex flex-row">
+    <div class="flex flex-none items-center leading-normal text-gray-600 rounded rounded-r-none border border-r-0 border-gray-300 px-3 py-2 whitespace-no-wrap bg-gray-100">
+      Email:
+    </div>
+    <div class="block bg-gray-100 border border-gray-300 text-gray-700 py-2 px-3 rounded rounded-l-none">
+      <%= @user.email %>
+    </div>
+  </div>
 
-  <li>
-    <strong>Password hash:</strong>
-    <%= @user.password_hash %>
-  </li>
-
-</ul>
-
-<%= link "Edit", to: Routes.user_path(@conn, :edit) %>
-
+  <%= link "Edit", to: Routes.user_path(@conn, :edit), class: "button-info" %>
+</div>

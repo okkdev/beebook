@@ -48,6 +48,7 @@ defmodule Beebook.MixProject do
       {:comeonin, "~> 5.1"},
       {:pbkdf2_elixir, "~> 1.0"},
       {:guardian, "~> 2.0"},
+      {:timex, "~> 3.6"},
       {:sobelow, "~> 0.8", only: :dev}
     ]
   end

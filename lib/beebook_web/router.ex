@@ -24,21 +24,20 @@ defmodule BeebookWeb.Router do
     get "/", PageController, :index
 
     # Sign in
-    get "/sign-in", SessionController, :sign_in
-    post "/sign-in", SessionController, :create_session
+    get "/signin", SessionController, :sign_in
+    post "/signin", SessionController, :create_session
 
     # Sign up
-    get "/sign-up", SessionController, :sign_up
-    post "/sign-up", SessionController, :create_user
-
-    # Sign out
-    post "/sign-out", SessionController, :sign_out
+    get "/signup", SessionController, :sign_up
+    post "/signup", SessionController, :create_user
   end
 
   # User Scope
   scope "/", BeebookWeb do
     pipe_through [:browser, :auth]
     resources "/users", UserController, only: [:show, :edit, :update], singleton: true
+    # Sign out
+    post "/signout", SessionController, :sign_out
 
     live "/library", LibraryLive
 

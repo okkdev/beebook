@@ -1,10 +1,10 @@
 defmodule BeebookWeb.Helpers.Auth do
   import Plug.Conn, only: [get_session: 2]
 
-  alias Beebook.{Repo, Accounts.User}
-
+  @doc """
+  Returns User if logged in or nil if not.
+  """
   def signed_in?(conn) do
-    user_id = get_session(conn, :current_user_id)
-    if user_id, do: !!Repo.get(User, user_id)
+    !!get_session(conn, :current_user)
   end
 end

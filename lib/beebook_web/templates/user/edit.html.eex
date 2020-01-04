@@ -1,5 +1,10 @@
-<h1>Edit User</h1>
+<div class="bg-white shadow-md rounded mx-auto max-w-lg px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
 
-<%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :update)) %>
+<div class="text-gray-700 text-xl mb-8">Edit Account</div>
 
-<%= link "Back", to: Routes.user_path(@conn, :show) %>
+  <div class="mb-8">
+    <%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :update)) %>
+  </div>
+  
+  <%= link "Account", to: Routes.user_path(@conn, :show), class: "button-info" %>
+</div>

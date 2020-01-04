@@ -15,7 +15,8 @@ config :beebook, BeebookWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "0JF1lJ6Fy+MZSvx1QlPTVUHv8IBVZZ1+Pq/fzZ7hVm/iMhHZgQPiFCJxcE3EF+d+",
   render_errors: [view: BeebookWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Beebook.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Beebook.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [signing_salt: "EQueCFJGCSQ"]
 
 # Configures Elixir's Logger
 config :logger, :console,

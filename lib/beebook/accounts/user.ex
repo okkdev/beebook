@@ -20,6 +20,7 @@ defmodule Beebook.Accounts.User do
     |> validate_required([:email, :password, :password_confirmation, :admin])
     # Check that email is valid
     |> validate_format(:email, ~r/@/)
+    # TODO: validate password rules
     |> validate_length(:password, min: 8, max: 100)
     # Check that password === password_confirmation
     |> validate_confirmation(:password)
