@@ -181,7 +181,8 @@ defmodule BeebookWeb.LibraryLive do
     links =
       Enum.filter(
         socket.assigns.search,
-        &String.contains?(String.downcase(&1.name), String.downcase(query))
+        &(String.contains?(String.downcase(&1.name), String.downcase(query)) ||
+            String.contains?(String.downcase(&1.url), String.downcase(query)))
       )
 
     assign(socket, query: query, links: links)
