@@ -20,9 +20,15 @@ defmodule Beebook.Accounts.User do
     |> validate_required([:email, :password, :password_confirmation, :admin])
     # Check that email is valid
     |> validate_format(:email, ~r/@/)
-    # TODO: validate password rules
     |> validate_length(:password, min: 8, max: 100)
-    # Check that password === password_confirmation
+    # Validate password rules
+    |> validate_format(
+      :password,
+      ~r/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,100}$/,
+      message:
+        "The password needs at least 1 uppercase character, 1 lowercase character, 1 number and 1 special character"
+    )
+    # Check that password == password_confirmation
     |> validate_confirmation(:password)
     |> validate_length(:email, max: 100)
     |> unique_constraint(:email)
