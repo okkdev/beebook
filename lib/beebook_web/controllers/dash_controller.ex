@@ -17,8 +17,24 @@ defmodule BeebookWeb.DashController do
   end
 
   def index(conn, _params) do
-    users = Accounts.list_users()
+    users = Enum.sort_by(Accounts.list_users(), fn user -> user.id end)
     links = Library.list_links()
     render(conn, "index.html", users: users, links: links)
+  end
+
+  @doc """
+  Updates the user admin.
+  """
+  def update(conn, %{"user" => user}) do
+    case Accounts.update_admin(user["id"], user["admin"]) do
+      {1, _} ->
+        conn
+        |> redirect(to: Routes.dash_path(conn, :index))
+
+      {_, _} ->
+        conn
+        |> put_flash(:error, "Something went wrong...")
+        |> redirect(to: Routes.dash_path(conn, :index))
+    end
   end
 end
