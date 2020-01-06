@@ -73,11 +73,19 @@
               <% end %>
             <% end %>
           </td>
-          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-            <a href="<%= link.url %>" target="_"><%= link.name %></a>
+          <td class="border-b border-gray-200 bg-white text-sm">
+            <a href="<%= link.url %>" target="_">
+              <div class="w-full h-full px-5 py-5">
+                <%= link.name %>
+              </div>
+            </a>
           </td>
-          <td class="px-5 py-5 border-b border-gray-200 text-gray-600 bg-white text-sm hidden sm:table-cell">
-            <a href="<%= link.url %>" target="_"><%= link.url %></a>
+          <td class="border-b border-gray-200 text-gray-600 bg-white text-sm hidden sm:table-cell">
+            <a href="<%= link.url %>" target="_">
+              <div class="w-full h-full px-5 py-5">
+                <%= link.url %>
+              </div>
+            </a>
           </td>
           <td class="px-5 py-5 border-b border-gray-200 text-gray-600 bg-white text-sm hidden md:table-cell">
             <%= Timex.format!(link.inserted_at, "%d.%m.%Y %H:%M", :strftime) %>
