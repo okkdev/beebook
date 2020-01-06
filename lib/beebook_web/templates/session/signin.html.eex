@@ -25,8 +25,8 @@
   </div>
 
   <div class="flex justify-between">
-    <%= submit "Sign in", class: "button-confirm" %>
     <%= link "I don't have an account", to: Routes.session_path(@conn, :sign_up), class: "button-info text-sm" %>
+    <%= submit "Sign in", class: "button-confirm" %>
   </div>
 </div>
 <% end %>

@@ -42,6 +42,7 @@ defmodule BeebookWeb.Router do
     live "/library", LibraryLive
 
     get "/dashboard", DashController, :index
+    post "/dashboard", DashController, :update
   end
 
   # Other scopes may use custom stacks.

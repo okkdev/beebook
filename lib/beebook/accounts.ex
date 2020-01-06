@@ -114,4 +114,12 @@ defmodule Beebook.Accounts do
   def get_by_email(nil), do: nil
 
   def get_by_email(email), do: User |> Repo.get_by(email: email)
+
+  @doc """
+  Update user admin status
+  """
+  def update_admin(user_id, admin) do
+    from(u in User, where: u.id == ^user_id, update: [set: [admin: ^admin]])
+    |> Repo.update_all([])
+  end
 end

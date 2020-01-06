@@ -22,10 +22,10 @@
 
       <div class="relative inline-block">
         <form phx-submit="toggle">
-          <%= submit class: "inline-flex items-center pl-5 pr-2 py-2 text-white bg-gray-600 rounded-lg hover:bg-gray-700 focus:outline-none" do %>
+          <%= submit class: "inline-flex items-center pl-5 pr-2 py-2 text-gray-600 bg-gray-100 rounded-lg shadow hover:bg-gray-200 focus:outline-none" do %>
             Account
             <svg
-              class="ml-2 h-6 w-6 text-white"
+              class="ml-2 h-6 w-6 text-gray-600"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -37,7 +37,7 @@
         </form>
 
         <%= if @account_button do %>
-        <div class="mt-2 absolute right-0 origin-top-right text-left">
+        <div class="mt-2 absolute right-0 origin-top-right text-left z-50">
           <div class="w-48 bg-white rounded-lg shadow-lg">
             <div class="py-1">
               <%= link to: "/users", class: "block px-6 py-3 leading-tight hover:bg-gray-200" do %>
