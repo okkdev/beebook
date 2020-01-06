@@ -22,7 +22,7 @@
       <tbody>
       <%= for user <- @users do %>
         <tr>
-          <td class="px-5 py-3 border-b border-gray-200 bg-white text-sm"><%= user.email %></td>
+          <td class="px-5 py-3 border-b border-gray-200 bg-white text-sm"><%= user.email %> <%= if user.id == @current_user.id do %><span class="text-red-500">(You)</span><% end %></td>
           <td class="px-5 py-3 border-b border-gray-200 bg-white text-sm">
           <%= form_for @conn, Routes.dash_path(@conn, :update), [as: :user], fn f -> %>
           <%= hidden_input f, :id, value: user.id %>
