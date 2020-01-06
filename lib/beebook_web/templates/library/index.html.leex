@@ -33,56 +33,58 @@
   </form>
 
   <%= if !Enum.empty?(@links) do %>
-  <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-    <table class="min-w-full leading-normal">
+  <div class="w-full shadow rounded-lg">
+    <table class="table-fixed w-full leading-normal whitespace-no-wrap">
       <thead>
         <tr>
-          <th class="pl-5 py-3 border-b-2 border-gray-200 bg-gray-100 w-0">
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 tracking-wider w-4/12">
+            <div class="flex">
             <%= live_link to: Routes.live_path(@socket, BeebookWeb.LibraryLive, %{sort_by: "priority"}) do %>
-            <div class="bg-gray-500 mx-auto rounded-full overflow-hidden w-2 h-2" title="Priority"></div>
+              <div class="w-3 mr-4">
+                <div class="bg-gray-500 rounded-full overflow-hidden w-2 h-2 mx-auto mt-1" title="Priority"></div>
+              </div>
             <% end %>
-          </th>
-          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 tracking-wider">
             <%= live_link "Name", to: Routes.live_path(@socket, BeebookWeb.LibraryLive, %{sort_by: "name"}) %>
+            </div>
           </th>
-          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 tracking-wider hidden sm:table-cell">
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 tracking-wider hidden sm:table-cell w-5/12">
             <%= live_link "URL", to: Routes.live_path(@socket, BeebookWeb.LibraryLive, %{sort_by: "url"}) %>
           </th>
-          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 tracking-wider hidden md:table-cell">
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 tracking-wider hidden md:table-cell w-2/12">
             <%= live_link "Created", to: Routes.live_path(@socket, BeebookWeb.LibraryLive, %{sort_by: "created"}) %>
           </th>
-          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100"></th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 w-1/12"></th>
         </tr>
       </thead>
       <tbody>
         <%= for link <- @links do %>
         <tr>
-          <td class="pl-5 py-5 border-b border-gray-200 bg-white text-sm">
+          <td class="border-b border-gray-200 bg-white text-sm pl-5">
+          <div class="flex">
             <%= case link.priority do %>
             <% 1 -> %>
               <%= live_link to: Routes.live_path(@socket, BeebookWeb.LibraryLive, %{sort_by: "priority"}) do %>
-                <div class="bg-red-400 hover:bg-red-500 rounded-full overflow-hidden w-3 h-3"></div>
+                <div class="bg-red-400 hover:bg-red-500 rounded-full overflow-hidden w-3 h-3 mr-4 mb-5 mt-6"></div>
               <% end %>
             <% 2 -> %>
               <%= live_link to: Routes.live_path(@socket, BeebookWeb.LibraryLive, %{sort_by: "priority_medium"}) do %>
-                <div class="bg-yellow-400 hover:bg-yellow-500 rounded-full overflow-hidden w-3 h-3"></div>
+                <div class="bg-yellow-400 hover:bg-yellow-500 rounded-full overflow-hidden w-3 h-3 mr-4 mb-5 mt-6"></div>
               <% end %>
             <% _ -> %>
               <%= live_link to: Routes.live_path(@socket, BeebookWeb.LibraryLive, %{sort_by: "priority_low"}) do %>
-                <div class="bg-green-400 hover:bg-green-500 rounded-full overflow-hidden w-3 h-3"></div>
+                <div class="bg-green-400 hover:bg-green-500 rounded-full overflow-hidden w-3 h-3 mr-4 mb-5 mt-6"></div>
               <% end %>
             <% end %>
-          </td>
-          <td class="border-b border-gray-200 bg-white text-sm">
             <a href="<%= link.url %>" target="_">
-              <div class="w-full h-full px-5 py-5">
+              <div class="w-full h-full pr-5 py-5 overflow-hidden" title="<%= link.name %>" style="text-overflow: ellipsis;">
                 <%= link.name %>
               </div>
             </a>
+          </div>
           </td>
           <td class="border-b border-gray-200 text-gray-600 bg-white text-sm hidden sm:table-cell">
             <a href="<%= link.url %>" target="_">
-              <div class="w-full h-full px-5 py-5">
+              <div class="w-full h-full px-5 py-5 overflow-hidden" title="<%= link.url %>" style="text-overflow: ellipsis;">
                 <%= link.url %>
               </div>
             </a>
