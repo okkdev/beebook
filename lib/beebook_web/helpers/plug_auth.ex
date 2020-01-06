@@ -1,7 +1,6 @@
 defmodule BeebookWeb.Helpers.AuthPlug do
   import Plug.Conn
   import Phoenix.Controller
-  alias Beebook.Accounts
 
   def init(default), do: default
 

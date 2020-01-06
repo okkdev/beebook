@@ -24,9 +24,9 @@ defmodule Beebook.Accounts.User do
     # Validate password rules
     |> validate_format(
       :password,
-      ~r/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,100}$/,
+      ~r/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!?*()@%&]).{8,100}$/,
       message:
-        "The password needs at least 1 uppercase character, 1 lowercase character, 1 number and 1 special character"
+        "The password needs at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 of these '#$^+=!?*()@%&' special characters"
     )
     # Check that password == password_confirmation
     |> validate_confirmation(:password)
