@@ -10,7 +10,15 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :beebook, BeebookWeb.Endpoint,
-  url: [host: "example.com", port: 80],
+  url: [host: "beebook.io", port: 443],
+  https: [
+    :inet6,
+    port: 443,
+    cipher_suite: :strong,
+    keyfile: "priv/cert/selfsigned_key.pem",
+    certfile: "priv/cert/selfsigned.pem"
+  ],
+  force_ssl: [hsts: true],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
