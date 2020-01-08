@@ -35,6 +35,7 @@ defmodule BeebookWeb.SessionController do
       {:ok, user} ->
         conn
         |> put_session(:current_user, user)
+        |> configure_session(renew: true)
         |> put_flash(:info, "Sign in successful!")
         |> redirect(to: Routes.page_path(conn, :index))
 
@@ -53,6 +54,7 @@ defmodule BeebookWeb.SessionController do
       {:ok, user} ->
         conn
         |> put_session(:current_user, user)
+        |> configure_session(renew: true)
         |> put_flash(:info, "Sign up successful!")
         |> redirect(to: Routes.page_path(conn, :index))
 

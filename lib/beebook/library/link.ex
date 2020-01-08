@@ -16,8 +16,8 @@ defmodule Beebook.Library.Link do
     link
     |> cast(attrs, [:name, :url, :priority, :user_id])
     |> validate_required([:name, :url, :priority, :user_id])
-    |> validate_length(:url, min: 1, max: 20)
-    |> validate_length(:name, min: 1, max: 255)
+    |> validate_length(:url, min: 1, max: 255)
+    |> validate_length(:name, min: 1, max: 40)
     |> foreign_key_constraint(:user_id)
   end
 end
