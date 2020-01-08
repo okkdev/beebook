@@ -61,20 +61,24 @@ defmodule BeebookWeb.LibraryLive do
   Handle add event when adding new links.
   """
   def handle_event("add", %{"link" => link}, socket) do
-    case Library.create_link(link) do
-      {:ok, link} ->
-        # broadcast change to other sessions from user
-        BeebookWeb.Endpoint.broadcast_from(
-          self(),
-          topic(socket.assigns.current_user_id),
-          "add",
-          link
-        )
+    if link["user_id"] == socket.assigns.current_user_id do
+      case Library.create_link(link) do
+        {:ok, link} ->
+          # broadcast change to other sessions from user
+          BeebookWeb.Endpoint.broadcast_from(
+            self(),
+            topic(socket.assigns.current_user_id),
+            "add",
+            link
+          )
 
-        {:noreply, add_link(link, socket)}
+          {:noreply, add_link(link, socket)}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, link_changeset: changeset)}
+        {:error, %Ecto.Changeset{} = changeset} ->
+          {:noreply, assign(socket, link_changeset: changeset)}
+      end
+    else
+      {:noreply, socket}
     end
   end
 
